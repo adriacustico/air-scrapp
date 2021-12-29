@@ -40,7 +40,7 @@ class ScrapAirpGenerator:
                     url_flight ='https://data-live.flightradar24.com/clickhandler/?version=1.5&flight=' + flight
                     flight_out_json = self.curl_scrapping(url_flight) # diccionario con datos de vuelo
 
-                    flight_json.update({'id':{flight:flight_out_json}})
+                    flight_json.update({flight:flight_out_json})
 
                     print(flight+ ' Cargado Correctamente ' +  str(id_flights.index(flight)+1) + '/'+ str(len(id_flights))+'\r')
                 except:
