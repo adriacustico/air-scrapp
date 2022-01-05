@@ -1,4 +1,4 @@
-import json
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import utm
@@ -25,14 +25,14 @@ class TrackAnalysis:
         index=list(df.index.values) # list of flight ids
 
         ax = plt.figure().add_subplot(projection='3d')
-    
         for i in index:
             a=df.loc[i] # a is a row of the main dataframe
             try:
                 trail_df=pd.DataFrame(a['trail'])   
             except ValueError:
-                print('No trail data for flight ' + i)
+                print('No data for flight ' + i)
                 continue
+            
             if trail_df.empty:
                 print("Empty trail: "+ i)
                 continue
@@ -70,13 +70,10 @@ class TrackAnalysis:
         result_df=e[(e['Easting']>east_left) & (e['Easting']<east_right) & (e['Northing']>north_down) & (e['Northing']<north_up)]
         sc= ax.plot(result_df.Easting, result_df.Northing, result_df.alt*0.3048)
         return [sc, east_left, east_right, north_up, north_down]
-        
-    
-
 
 def main():
-    file_in = '2021-12-15_data.json' #  <= Filename
-    track = TrackAnalysis(file_in)
+    filename = 'SCL_2022-01-04_data.json' #  <= Filename
+    track = TrackAnalysis(filename)
     track.read_file()
 
 if __name__ == '__main__':
